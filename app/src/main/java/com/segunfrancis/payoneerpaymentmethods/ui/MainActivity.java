@@ -1,8 +1,10 @@
-package com.segunfrancis.payoneerpaymentmethods;
+package com.segunfrancis.payoneerpaymentmethods.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.segunfrancis.payoneerpaymentmethods.R;
 
 public class MainActivity extends AppCompatActivity {
 
