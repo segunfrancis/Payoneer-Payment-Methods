@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Payoneer Payment Methods</string>
+    <string name="payment_option_image">Payment option image</string>
 </resources>
