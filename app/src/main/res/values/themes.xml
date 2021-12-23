@@ -1,9 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PayoneerPaymentMethods" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.PayoneerPaymentMethods" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/purple_500</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,5 +12,31 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MainTextAppearance" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">@dimen/main_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/main_text_color</item>
+        <item name="android:fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="ProgressIndicatorStyle">
+        <item name="android:indeterminate">true</item>
+        <item name="indicatorColor">@color/purple_500</item>
+        <item name="trackCornerRadius">@dimen/progress_indicator_radius</item>
+        <item name="trackThickness">@dimen/progress_indicator_thickness</item>
+    </style>
+
+    <style name="ScrollbarStyle">
+        <item name="android:scrollbarAlwaysDrawVerticalTrack">true</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:fadeScrollbars">true</item>
+        <item name="android:scrollbarThumbVertical">@drawable/scrollbar_vertical_thumb</item>
+        <item name="android:scrollbarTrackVertical">@drawable/scrollbar_vertical_track</item>
+        <item name="android:scrollbarSize">@dimen/small_margin</item>
+        <item name="android:scrollbarFadeDuration">400</item>
+        <item name="android:scrollbarDefaultDelayBeforeFade">400</item>
     </style>
 </resources>

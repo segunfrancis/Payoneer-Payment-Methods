@@ -8,9 +8,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/payment_method_recycler_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scrollbars="vertical"
+        style="@style/ScrollbarStyle"
+        android:layout_width="@dimen/no_space"
+        android:layout_height="@dimen/no_space"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,14 +19,11 @@
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_indicator"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:indeterminate="true"
-        app:indicatorColor="@color/design_default_color_primary"
+        style="@style/ProgressIndicatorStyle"
+        android:layout_width="@dimen/progress_indicator_size"
+        android:layout_height="@dimen/progress_indicator_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:trackCornerRadius="5dp"
-        app:trackThickness="10dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
