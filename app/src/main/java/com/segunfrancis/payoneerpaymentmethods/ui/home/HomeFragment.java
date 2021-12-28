@@ -12,6 +12,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.segunfrancis.payoneerpaymentmethods.databinding.FragmentHomeBinding;
+import com.segunfrancis.payoneerpaymentmethods.util.ErrorDialog;
+import com.segunfrancis.payoneerpaymentmethods.util.ErrorUtils;
 
 import java.util.List;
 
@@ -22,6 +24,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
+    private ErrorDialog dialog = null;
 
     @Nullable
     @Override
@@ -41,11 +44,14 @@ public class HomeFragment extends Fragment {
     private void setupObservers() {
         viewModel.state.observe(getViewLifecycleOwner(), listPaymentMethodState -> {
             switch (listPaymentMethodState) {
-                case SUCCESS: handleSuccess();
-                break;
-                case IN_PROGRESS: handleLoading();
-                break;
-                case ERROR: handleError();
+                case SUCCESS:
+                    handleSuccess();
+                    break;
+                case IN_PROGRESS:
+                    handleLoading();
+                    break;
+                case ERROR:
+                    handleError();
             }
         });
     }
@@ -64,6 +70,10 @@ public class HomeFragment extends Fragment {
     private void handleError() {
         viewModel.error.observe(getViewLifecycleOwner(), error -> {
             binding.progressIndicator.setVisibility(View.GONE);
+            if (dialog == null) {
+                dialog = new ErrorDialog(requireContext(), ErrorUtils.handleThrowable(error), () -> viewModel.loadPaymentMethods());
+            }
+            dialog.show();
         });
     }
 
