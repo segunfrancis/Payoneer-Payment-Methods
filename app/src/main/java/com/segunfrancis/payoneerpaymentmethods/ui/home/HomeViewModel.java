@@ -21,6 +21,8 @@ import timber.log.Timber;
 @HiltViewModel
 public class HomeViewModel extends BaseViewModel {
 
+    private final IPaymentMethodRepository repository;
+
     private final MutableLiveData<PaymentMethodState> _state = new MutableLiveData<>();
     public LiveData<PaymentMethodState> state = _state;
 
@@ -32,6 +34,12 @@ public class HomeViewModel extends BaseViewModel {
 
     @Inject
     public HomeViewModel(@NonNull IPaymentMethodRepository repository) {
+        this.repository = repository;
+
+        loadPaymentMethods();
+    }
+
+    public void loadPaymentMethods() {
         _state.postValue(PaymentMethodState.IN_PROGRESS);
         disposable.add(repository.getPaymentMethods()
                 .map(response -> response.getNetworks().getApplicable())

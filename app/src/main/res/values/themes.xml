@@ -21,9 +21,20 @@
         <item name="android:fontFamily">@font/poppins</item>
     </style>
 
+    <style name="MainTextAppearance.SubTextAppearance">
+        <item name="android:textSize">@dimen/sub_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="MainTextAppearance.ButtonTextAppearance">
+        <item name="android:textSize">@dimen/sub_text_size</item>
+        <item name="android:textStyle">normal</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
     <style name="ProgressIndicatorStyle">
         <item name="android:indeterminate">true</item>
-        <item name="indicatorColor">@color/purple_500</item>
+        <item name="indicatorColor">@color/color_progress_bar</item>
         <item name="trackCornerRadius">@dimen/progress_indicator_radius</item>
         <item name="trackThickness">@dimen/progress_indicator_thickness</item>
     </style>

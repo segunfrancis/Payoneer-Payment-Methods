@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main_text_color">#707070</color>
-    <color name="color_scroll_bar">#BDBDBD</color>
+    <color name="color_scroll_bar">#66FF4800</color>
+    <color name="color_progress_bar">#FF4800</color>
     <color name="transparent">#00000000</color>
+    <color name="icon_bg">#33929497</color>
+    <color name="dialog_background">@color/white</color>
 </resources>
