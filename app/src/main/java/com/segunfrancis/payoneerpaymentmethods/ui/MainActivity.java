@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.segunfrancis.payoneerpaymentmethods.R;
+import com.segunfrancis.payoneerpaymentmethods.databinding.ActivityMainBinding;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 }
