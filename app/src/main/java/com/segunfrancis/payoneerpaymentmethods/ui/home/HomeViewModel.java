@@ -9,12 +9,14 @@ import com.segunfrancis.payoneerpaymentmethods.data.repository.IPaymentMethodRep
 import com.segunfrancis.payoneerpaymentmethods.util.PaymentMethodState;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -41,13 +43,9 @@ public class HomeViewModel extends BaseViewModel {
 
     public void loadPaymentMethods() {
         _state.postValue(PaymentMethodState.IN_PROGRESS);
-        disposable.add(repository.getPaymentMethods()
-                .map(response -> response.getNetworks().getApplicable())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(applicableItems -> {
-                    _state.postValue(PaymentMethodState.SUCCESS);
-                    List<PaymentMethod> paymentMethods = applicableItems.stream().map(applicableItem ->
+        Single<List<PaymentMethod>> items = Single.create(emitter -> {
+            List<PaymentMethod> paymentMethods = Objects.requireNonNull(repository.getPaymentMethods().body())
+                    .getNetworks().getApplicable().stream().map(applicableItem ->
                             new PaymentMethod(
                                     applicableItem.getCode(),
                                     applicableItem.getMethod(),
@@ -56,13 +54,21 @@ public class HomeViewModel extends BaseViewModel {
                                     applicableItem.getLinks().getLogo()
                             )
                     ).collect(Collectors.toList());
-                    _response.postValue(paymentMethods);
-                })
-                .doOnError(throwable -> {
-                    _state.postValue(PaymentMethodState.ERROR);
-                    _error.postValue(throwable);
-                })
-                .subscribe((applicableItems, throwable) -> Timber.e(throwable))
+            emitter.onSuccess(paymentMethods);
+        });
+
+        disposable.add(
+                items.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnSuccess(applicableItems -> {
+                            _state.postValue(PaymentMethodState.SUCCESS);
+                            _response.postValue(applicableItems);
+                        })
+                        .doOnError(throwable -> {
+                            _state.postValue(PaymentMethodState.ERROR);
+                            _error.postValue(throwable);
+                        })
+                        .subscribe((applicableItems, throwable) -> Timber.e(throwable))
         );
     }
 }

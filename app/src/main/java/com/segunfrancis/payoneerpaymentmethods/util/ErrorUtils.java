@@ -12,17 +12,15 @@ public class ErrorUtils {
 
     @NonNull
     public static String handleThrowable(Throwable t) {
-        String error;
         ValueRange range = ValueRange.of(500, 599);
         if (t instanceof UnknownHostException) {
-            error = "We've detected a network problem. Please check your internet connection and try again";
+            return "We've detected a network problem. Please check your internet connection and try again";
         } else if (t instanceof HttpException && range.isValidValue(((HttpException) t).code())) {
-            error = "Sorry, we are currently experiencing some internal technical difficulties. Please give it a moment and try again";
+            return "Sorry, we are currently experiencing some internal technical difficulties. Please give it a moment and try again";
         } else if (t instanceof SocketTimeoutException) {
-            error = "Please check your connectivity and try again";
+            return "Please check your connectivity and try again";
         } else {
-            error = "Unknown error";
+            return "Unknown error";
         }
-        return error;
     }
 }

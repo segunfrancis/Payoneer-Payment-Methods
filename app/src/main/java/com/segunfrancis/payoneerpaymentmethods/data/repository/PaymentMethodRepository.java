@@ -3,11 +3,13 @@ package com.segunfrancis.payoneerpaymentmethods.data.repository;
 import androidx.annotation.WorkerThread;
 
 import com.segunfrancis.payoneerpaymentmethods.data.remote.PaymentMethodsApi;
-import com.segunfrancis.payoneerpaymentmethods.data.remote.model.Response;
+import com.segunfrancis.payoneerpaymentmethods.data.remote.model.BaseResponse;
+
+import java.io.IOException;
 
 import javax.inject.Inject;
 
-import io.reactivex.rxjava3.core.Single;
+import retrofit2.Response;
 
 public class PaymentMethodRepository implements IPaymentMethodRepository {
 
@@ -20,7 +22,7 @@ public class PaymentMethodRepository implements IPaymentMethodRepository {
 
     @WorkerThread
     @Override
-    public Single<Response> getPaymentMethods() {
-        return api.loadPaymentMethods();
+    public Response<BaseResponse> getPaymentMethods() throws IOException {
+        return api.loadPaymentMethods().execute();
     }
 }
