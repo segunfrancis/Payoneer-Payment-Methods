@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.segunfrancis.payoneerpaymentmethods.base.BaseViewModel;
+import com.segunfrancis.payoneerpaymentmethods.data.remote.model.ApplicableItem;
 import com.segunfrancis.payoneerpaymentmethods.data.repository.IPaymentMethodRepository;
 import com.segunfrancis.payoneerpaymentmethods.util.PaymentMethodState;
 
@@ -28,8 +29,8 @@ public class HomeViewModel extends BaseViewModel {
     private final MutableLiveData<PaymentMethodState> _state = new MutableLiveData<>();
     public LiveData<PaymentMethodState> state = _state;
 
-    private final MutableLiveData<List<PaymentMethod>> _response = new MutableLiveData<>();
-    public LiveData<List<PaymentMethod>> response = _response;
+    private final MutableLiveData<List<ApplicableItem>> _response = new MutableLiveData<>();
+    public LiveData<List<ApplicableItem>> response = _response;
 
     private final MutableLiveData<Throwable> _error = new MutableLiveData<>();
     public LiveData<Throwable> error = _error;
@@ -43,17 +44,9 @@ public class HomeViewModel extends BaseViewModel {
 
     public void loadPaymentMethods() {
         _state.postValue(PaymentMethodState.IN_PROGRESS);
-        Single<List<PaymentMethod>> items = Single.create(emitter -> {
-            List<PaymentMethod> paymentMethods = Objects.requireNonNull(repository.getPaymentMethods().body())
-                    .getNetworks().getApplicable().stream().map(applicableItem ->
-                            new PaymentMethod(
-                                    applicableItem.getCode(),
-                                    applicableItem.getMethod(),
-                                    applicableItem.getLabel(),
-                                    applicableItem.getLabel(),
-                                    applicableItem.getLinks().getLogo()
-                            )
-                    ).collect(Collectors.toList());
+        Single<List<ApplicableItem>> items = Single.create(emitter -> {
+            List<ApplicableItem> paymentMethods = Objects.requireNonNull(repository.getPaymentMethods().body())
+                    .getNetworks().getApplicable();
             emitter.onSuccess(paymentMethods);
         });
 

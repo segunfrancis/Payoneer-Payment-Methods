@@ -2,4 +2,5 @@
 <resources>
     <color name="main_text_color">#FEF9EF</color>
     <color name="dialog_background">@color/icon_bg</color>
+    <color name="box_background_color">#FEF9EF</color>
 </resources>

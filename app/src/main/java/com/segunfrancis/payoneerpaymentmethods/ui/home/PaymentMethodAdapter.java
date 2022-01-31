@@ -9,13 +9,20 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.segunfrancis.payoneerpaymentmethods.R;
+import com.segunfrancis.payoneerpaymentmethods.data.remote.model.ApplicableItem;
+import com.segunfrancis.payoneerpaymentmethods.data.remote.model.InputElementsItem;
 import com.segunfrancis.payoneerpaymentmethods.databinding.ItemPaymentMethodBinding;
 import com.segunfrancis.payoneerpaymentmethods.util.GlideUtils;
 
-public class PaymentMethodAdapter extends ListAdapter<PaymentMethod, PaymentMethodAdapter.PaymentMethodViewHolder> {
+import java.util.List;
 
-    protected PaymentMethodAdapter() {
+public class PaymentMethodAdapter extends ListAdapter<ApplicableItem, PaymentMethodAdapter.PaymentMethodViewHolder> {
+
+    private OnItemClickListener listener;
+
+    protected PaymentMethodAdapter(OnItemClickListener listener) {
         super(PaymentMethodAdapter.DIFF_UTIL);
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,7 +40,7 @@ public class PaymentMethodAdapter extends ListAdapter<PaymentMethod, PaymentMeth
         holder.bind(getItem(position));
     }
 
-    static class PaymentMethodViewHolder extends RecyclerView.ViewHolder {
+     class PaymentMethodViewHolder extends RecyclerView.ViewHolder {
 
         private final ItemPaymentMethodBinding binding;
 
@@ -42,22 +49,26 @@ public class PaymentMethodAdapter extends ListAdapter<PaymentMethod, PaymentMeth
             this.binding = binding;
         }
 
-        public void bind(@NonNull PaymentMethod method) {
-            binding.paymentOptionLabel.setText(method.getLabel());
-            GlideUtils.loadImage(binding.paymentOptionImage, method.getLogo());
-            binding.getRoot().setOnClickListener(v -> {});
+        public void bind(@NonNull ApplicableItem applicableItem) {
+            binding.paymentOptionLabel.setText(applicableItem.getLabel());
+            GlideUtils.loadImage(binding.paymentOptionImage, applicableItem.getLinks().getLogo());
+            binding.getRoot().setOnClickListener(v -> { listener.onClick(applicableItem); });
         }
     }
 
-    public static final DiffUtil.ItemCallback<PaymentMethod> DIFF_UTIL = new DiffUtil.ItemCallback<PaymentMethod>() {
+    public static final DiffUtil.ItemCallback<ApplicableItem> DIFF_UTIL = new DiffUtil.ItemCallback<ApplicableItem>() {
         @Override
-        public boolean areItemsTheSame(@NonNull PaymentMethod oldItem, @NonNull PaymentMethod newItem) {
+        public boolean areItemsTheSame(@NonNull ApplicableItem oldItem, @NonNull ApplicableItem newItem) {
             return oldItem.getCode().equals(newItem.getCode());
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull PaymentMethod oldItem, @NonNull PaymentMethod newItem) {
+        public boolean areContentsTheSame(@NonNull ApplicableItem oldItem, @NonNull ApplicableItem newItem) {
             return oldItem.equals(newItem);
         }
     };
+
+    interface OnItemClickListener {
+        void onClick(ApplicableItem applicableItem);
+    }
 }

@@ -9,5 +9,18 @@
         android:id="@+id/homeFragment"
         android:name="com.segunfrancis.payoneerpaymentmethods.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/toApplicableFragment"
+            app:destination="@id/applicableFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/applicableFragment"
+        android:name="com.segunfrancis.payoneerpaymentmethods.ui.applicable_items.ApplicableFragment"
+        android:label="ApplicableFragment"
+        tools:layout="@layout/fragment_applicable">
+        <argument
+            android:name="applicableItem"
+            app:argType="com.segunfrancis.payoneerpaymentmethods.data.remote.model.ApplicableItem" />
+    </fragment>
 </navigation>
