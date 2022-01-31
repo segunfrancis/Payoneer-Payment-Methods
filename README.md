@@ -29,6 +29,8 @@ A simple Android project showing lists of payment options for [Payoneer](www.pay
   <img src="https://github.com/segunfrancis/Payoneer-Payment-Methods/blob/master/screenshots/device-2021-12-29-184105.png" width="40%" alt="Screen1" hspace="15">
   <img src="https://github.com/segunfrancis/Payoneer-Payment-Methods/blob/master/screenshots/device-2021-12-29-184211.png" width="40%" alt="Screen2" hspace="15">
   <img src="https://github.com/segunfrancis/Payoneer-Payment-Methods/blob/master/screenshots/device-2021-12-29-184249.png" alt="Screenshot" width="40%" hspace="15"/>
+  <img src="https://github.com/segunfrancis/Payoneer-Payment-Methods/blob/master/screenshots/device-2022-01-31-162739.png" width="40%" alt="Screen2" hspace="15">
+  <img src="https://github.com/segunfrancis/Payoneer-Payment-Methods/blob/master/screenshots/device-2022-01-31-165233.png" width="40%" alt="Screen2" hspace="15">
 </ul>
 
 ## Author
