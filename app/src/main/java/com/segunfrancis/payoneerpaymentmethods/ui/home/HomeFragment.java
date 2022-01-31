@@ -9,8 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.segunfrancis.payoneerpaymentmethods.data.remote.model.ApplicableItem;
 import com.segunfrancis.payoneerpaymentmethods.databinding.FragmentHomeBinding;
 import com.segunfrancis.payoneerpaymentmethods.util.ErrorDialog;
 import com.segunfrancis.payoneerpaymentmethods.util.ErrorUtils;
@@ -20,7 +22,7 @@ import java.util.List;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements PaymentMethodAdapter.OnItemClickListener {
 
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
@@ -77,10 +79,15 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void setupAdapter(List<PaymentMethod> paymentMethods) {
-        PaymentMethodAdapter adapter = new PaymentMethodAdapter();
+    private void setupAdapter(List<ApplicableItem> paymentMethods) {
+        PaymentMethodAdapter adapter = new PaymentMethodAdapter(this);
         binding.paymentMethodRecyclerView.setAdapter(adapter);
         binding.paymentMethodRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter.submitList(paymentMethods);
+    }
+
+    @Override
+    public void onClick(ApplicableItem applicableItem) {
+        Navigation.findNavController(requireView()).navigate(HomeFragmentDirections.toApplicableFragment(applicableItem));
     }
 }
